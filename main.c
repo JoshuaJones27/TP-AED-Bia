@@ -77,6 +77,7 @@ void menu();
 int readFileDados();
 int readFileAtividadeRealizada();
 int readFilePlanoAtividade();
+int readFileEscrita();
 int entreDatas();
 int pesquisarAtividadesRealizadasDeterminadoPeriodo();
 int pesquisarAtividadesRealizadasDeterminadoPeriodoOrdemDecrescente();
@@ -86,6 +87,7 @@ int tabelaAtividadesTodosPraticantes();
 int listarSeguidores();
 
 void main() {
+    readFileEscrita();
     menu();
 }
 
@@ -157,6 +159,32 @@ void menu() {
         }
     } while (opcao);
 
+}
+
+int readFileEscrita() {
+
+    FILE *fp;
+
+    system("cls");
+
+    if ((fp = fopen("GuardaEscrita.txt", "r")) == NULL)
+    {
+        printf("Erro ao abrir ficheiro.\n");
+    }
+
+    printf("Dados inseridos na ultima utilizacao: \n");
+
+    char line[1024];
+    while (fgets(line, sizeof(line), fp) != NULL)
+    {
+        printf("%s\n", line);
+    }
+    printf("\n");
+
+    system("pause");
+    fclose(fp);
+    system("cls");
+    return 0;
 }
 
 int readFileDados(char *path) {
@@ -262,6 +290,8 @@ int entreDatas(int diaAtividade, int mesAtividade, int anoAtividade, int diaInic
 }
 
 int pesquisarAtividadesRealizadasDeterminadoPeriodo() {
+    FILE *fp;
+
     int diaInicial, mesInicial, anoInicial, diaFinal, mesFinal, anoFinal;
     char atividade[30];
 
@@ -273,7 +303,6 @@ int pesquisarAtividadesRealizadasDeterminadoPeriodo() {
 
     printf("Introduza a data de fim (dd-mm-aaaa): ");
     scanf("%d-%d-%d", &diaFinal, &mesFinal, &anoFinal);
-    
 
     //Conta o numero de pessoas que praticaram a determinada atividade num determinado periodo
     int contParticipantes = 0;
@@ -292,11 +321,23 @@ int pesquisarAtividadesRealizadasDeterminadoPeriodo() {
     system("cls");
     printf("%d participantes realizaram a atividade %s entre as datas inseridas.\n", contParticipantes, atividade);
     system("pause");
+
+    fp = fopen("GuardaEscrita.txt", "a+");
+
+    char fileLine[10];
+
+    sprintf(fileLine, "\n%s;%d-%d-%d;%d-%d-%d", &atividade, diaInicial, mesInicial, anoInicial, diaFinal, mesFinal, anoFinal);
+    fputs(fileLine, fp);
+    
+    fclose(fp);
+
     system("cls");
     return 0;
 }
 
 int pesquisarAtividadesRealizadasDeterminadoPeriodoOrdemDecrescente() {
+    FILE *fp;
+    
     int idUtilizador[10];
     int n = 1, temp = 0, quantidade = 0;
 
@@ -307,6 +348,15 @@ int pesquisarAtividadesRealizadasDeterminadoPeriodoOrdemDecrescente() {
 
     printf("Introduza a data de fim (dd-mm-aaaa): ");
     scanf("%d-%d-%d", &diaFinal, &mesFinal, &anoFinal);
+
+    fp = fopen("GuardaEscrita.txt", "a+");
+
+    char fileLine[10];
+
+    sprintf(fileLine, "\n%d-%d-%d;%d-%d-%d", diaInicial, mesInicial, anoInicial, diaFinal, mesFinal, anoFinal);
+    fputs(fileLine, fp);
+    
+    fclose(fp);
 
 
     for (int i = 0; ar[i].id != 0; i++)
@@ -345,6 +395,8 @@ int pesquisarAtividadesRealizadasDeterminadoPeriodoOrdemDecrescente() {
 }
 
 int apresentacaoPlanoAtividadesDeterminadoTipo() {
+    FILE *fp;
+    
     int idUtilizador;
 
     int diaInicial, mesInicial, anoInicial, diaFinal, mesFinal, anoFinal;
@@ -359,6 +411,15 @@ int apresentacaoPlanoAtividadesDeterminadoTipo() {
     scanf("%d-%d-%d", &diaFinal, &mesFinal, &anoFinal);
 
     system("cls");
+
+    fp = fopen("GuardaEscrita.txt", "a+");
+
+    char fileLine[10];
+
+    sprintf(fileLine, "\n%d;%d-%d-%d;%d-%d-%d", idUtilizador, diaInicial, mesInicial, anoInicial, diaFinal, mesFinal, anoFinal);
+    fputs(fileLine, fp);
+    
+    fclose(fp);
 
     printf("Atividades realizadas pelo praticante ID %d\n", idUtilizador);
 
@@ -378,6 +439,8 @@ int apresentacaoPlanoAtividadesDeterminadoTipo() {
 }
 
 int calculoTemposTotaisMediasPorAtividade() {
+    FILE *fp;
+
     int diaInicial, mesInicial, anoInicial, diaFinal, mesFinal, anoFinal;
     //int idUtilizador[10];
     
@@ -387,6 +450,15 @@ int calculoTemposTotaisMediasPorAtividade() {
 
     printf("Introduza a data de fim (dd-mm-aaaa): ");
     scanf("%d-%d-%d", &diaFinal, &mesFinal, &anoFinal);
+
+    fp = fopen("GuardaEscrita.txt", "a+");
+
+    char fileLine[10];
+
+    sprintf(fileLine, "\n%d-%d-%d;%d-%d-%d", diaInicial, mesInicial, anoInicial, diaFinal, mesFinal, anoFinal);
+    fputs(fileLine, fp);
+    
+    fclose(fp);
     
     for (int i = 0; p[i].id != 0; i++)
     {
@@ -490,13 +562,22 @@ int listarSeguidores(char *path) {
     printf("Insira o ID de quem pretende seguir (n): ");
     scanf("%d", &s[countS].seguidores);
 
+    fp = fopen("GuardaEscrita.txt", "a+");
+
+    char fileLine[10];
+
+    sprintf(fileLine, "\n%d;%d", s[countS].idPraticante, s[countS].seguidores);
+    fputs(fileLine, fp);
+    
+    fclose(fp);
+
     fp = fopen(path, "a+");
     
     system("cls");
 
     printf("Lista de seguidores: \n");
 
-    char fileLine[10];
+    //char fileLine[10];
 
     sprintf(fileLine, "\n%d;%d", s[countS].idPraticante, s[countS].seguidores);
     fputs(fileLine, fp);
