@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <string.h>
 #include <unistd.h>
+#include <string.h>
 #include <math.h>
 #include <time.h>
 
@@ -441,9 +441,7 @@ int apresentacaoPlanoAtividadesDeterminadoTipo() {
 int calculoTemposTotaisMediasPorAtividade() {
     FILE *fp;
 
-    int diaInicial, mesInicial, anoInicial, diaFinal, mesFinal, anoFinal;
-    //int idUtilizador[10];
-    
+    int diaInicial, mesInicial, anoInicial, diaFinal, mesFinal, anoFinal; 
 
     printf("Introduza a data de inicio (dd-mm-aaaa): ");
     scanf("%d-%d-%d", &diaInicial, &mesInicial, &anoInicial);
@@ -471,16 +469,13 @@ int calculoTemposTotaisMediasPorAtividade() {
         {
             if (entreDatas(ar[j].dia, ar[j].mes, ar[j].ano, diaInicial, mesInicial, anoInicial, diaFinal, mesFinal, anoFinal) && p[i].id == ar[j].id)
             {
-                //printf("Tempo: %d quantidade: %d media: %d \n", tempo, quantidade, media);
                 tempo += ar[j].duracao;
                 quantidade += 1;
-                //printf("Tempo: %d quantidade: %d media: %d \n", tempo, quantidade, media);
-                //printf("P %d \nAR %d \nDatas %d\n Data printada %d-%d-%d \n", p[i].id, ar[j].id, estaEntreDatas, ar[j].dia, ar[j].mes, ar[j].ano);
             }
         }
-        //printf("Quantidade %d\n", quantidade);
+
         media = tempo / quantidade;
-        //printf("Media %.1f tempo %d quantidade %d", media, tempo, quantidade);
+
         printf("ID praticante: %d\n", p[i].id);
         printf("Tempo total por atividade: %.1f\n", tempo);
         printf("Tempo em media por atividade: %.1f\n", media);
@@ -518,26 +513,6 @@ int tabelaAtividadesTodosPraticantes() {
     return 0;
 }
 
-
-// int tabelaAtividadesTodosPraticantes() {
-//     printf(" ID | Nome | Atividade Planeada | Valor | Unidade Medida | Data Inicio | Data Fim | Atividade Realizada | Data Inicio | Valor | Unidade Medida \n"); // imprime cabeçalho da tabela
-//     printf("--------------------------------------------------------------------------------------\n"); // imprime linha de separação
-//     for (int i = 0; p[i].id != 0; i++)
-//     {
-//         for (int j = 0; pa[j].id != 0; j++)
-//         {
-//             for (int k = 0; ar[k].id != 0; k++)
-//             {
-//                 printf(" %d | %s | %s | %d | %s | %d-%d-%d | %d-%d-%d | %s | %d-%d-%d | %d | %s |\n", p[i].id, p[i].nome, pa[j].nomeAtividade, pa[j].distancia, pa[j].unidadeMedida, pa[j].diaInicio, pa[j].mesInicio, pa[j].anoInicio, pa[j].diaFim, pa[j].mesFim, pa[j].anoFim, ar[k].nomeAtividade, ar[k].dia, ar[k].mes, ar[k].ano, ar[k].distancia, ar[k].unidadeMedida);
-//             }
-            
-//         }
-//     }
-//     system("pause");
-//     system("cls");
-//     return 0;
-// }
-
 int listarSeguidores(char *path) {
     FILE *fp;
 
@@ -551,7 +526,6 @@ int listarSeguidores(char *path) {
     {
         sscanf(line, "%d;%d", &s[countS].idPraticante, &s[countS].seguidores);
         countS++;
-        //printf("%s\n", line);
     }
 
     fclose(fp);
@@ -577,11 +551,8 @@ int listarSeguidores(char *path) {
 
     printf("Lista de seguidores: \n");
 
-    //char fileLine[10];
-
     sprintf(fileLine, "\n%d;%d", s[countS].idPraticante, s[countS].seguidores);
     fputs(fileLine, fp);
-    //printf("%s", fileLine);
 
     fclose(fp);
 
@@ -595,4 +566,3 @@ int listarSeguidores(char *path) {
     system("pause");
     return 0;
 }
-
