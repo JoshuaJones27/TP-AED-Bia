@@ -65,7 +65,7 @@ PlanoAtividades pa[50];
 
 //Contador do Array de struct abaixo
 int countS = 0;
-//Array de struct que guarda o plano de atividades
+//Array de struct que guarda o plano de seguidores
 Seguidores s[50];
 
 //Contador do Array de struct abaixo
