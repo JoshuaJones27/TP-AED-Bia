@@ -56,22 +56,22 @@ typedef struct {
 //Contador do Array de struct abaixo
 int countAR = 0;
 //Array de struct que guarda as atividades realizadas
-AtividadesRealizadas ar[50];
+AtividadesRealizadas atividaderealizada[50];
 
 //Contador do Array de struct abaixo
 int countPA = 0;
 //Array de struct que guarda o plano de atividades
-PlanoAtividades pa[50];
+PlanoAtividades planoatividade[50];
 
 //Contador do Array de struct abaixo
 int countS = 0;
 //Array de struct que guarda o plano de seguidores
-Seguidores s[50];
+Seguidores seguidor[50];
 
 //Contador do Array de struct abaixo
 int countP = 0;
 //Array de struct que guarda os praticantes
-Praticante p[50];
+Praticante praticante[50];
 
 void menu();
 int readFileDados();
@@ -202,7 +202,7 @@ int readFileDados(char *path) {
     while (fgets(line, sizeof(line), fp) != NULL)
     {
         // Ler o conteudo de cada linha
-        sscanf(line, "%d;%[^;];%d;%d", &p[countP].id, p[countP].nome, &p[countP].nTelemovel, &p[countP].idade);
+        sscanf(line, "%d;%[^;];%d;%d", &praticante[countP].id, praticante[countP].nome, &praticante[countP].nTelemovel, &praticante[countP].idade);
         countP++;
         // Print the line of text
         printf("%s\n", line);
@@ -232,7 +232,7 @@ int readFileAtividadeRealizada(char *path) {
     while (fgets(line, sizeof(line), fp) != NULL)
     {
         // Ler o conteudo de cada linha
-        sscanf(line, "%d;%d-%d-%d;%d:%d;%[^;];%d;%d;%[^;]", &ar[countAR].id, &ar[countAR].dia, &ar[countAR].mes, &ar[countAR].ano, &ar[countAR].tempoInicio.hora, &ar[countAR].tempoInicio.minuto, ar[countAR].nomeAtividade, &ar[countAR].duracao, &ar[countAR].distancia, ar[countAR].unidadeMedida);
+        sscanf(line, "%d;%d-%d-%d;%d:%d;%[^;];%d;%d;%[^;]", &atividaderealizada[countAR].id, &atividaderealizada[countAR].dia, &atividaderealizada[countAR].mes, &atividaderealizada[countAR].ano, &atividaderealizada[countAR].tempoInicio.hora, &atividaderealizada[countAR].tempoInicio.minuto, atividaderealizada[countAR].nomeAtividade, &atividaderealizada[countAR].duracao, &atividaderealizada[countAR].distancia, atividaderealizada[countAR].unidadeMedida);
         countAR++;
         // Print the line of text
         printf("%s\n", line);
@@ -262,7 +262,7 @@ int readFilePlanoAtividade(char *path) {
     while (fgets(line, sizeof(line), fp) != NULL)
     {
         // Ler o conteudo de cada linha
-        sscanf(line, "%d;%d-%d-%d;%d:%d;%d-%d-%d;%d:%d;%[^;];%d;%[^;]", &pa[countPA].id, &pa[countPA].diaInicio, &pa[countPA].mesInicio, &pa[countPA].anoInicio, &pa[countPA].horaInicio.hora, &pa[countPA].horaInicio.minuto, &pa[countPA].diaFim, &pa[countPA].mesFim, &pa[countPA].anoFim, &pa[countPA].horaFim.hora, &pa[countPA].horaFim.minuto, pa[countPA].nomeAtividade, &pa[countPA].distancia, pa[countPA].unidadeMedida);
+        sscanf(line, "%d;%d-%d-%d;%d:%d;%d-%d-%d;%d:%d;%[^;];%d;%[^;]", &planoatividade[countPA].id, &planoatividade[countPA].diaInicio, &planoatividade[countPA].mesInicio, &planoatividade[countPA].anoInicio, &planoatividade[countPA].horaInicio.hora, &planoatividade[countPA].horaInicio.minuto, &planoatividade[countPA].diaFim, &planoatividade[countPA].mesFim, &planoatividade[countPA].anoFim, &planoatividade[countPA].horaFim.hora, &planoatividade[countPA].horaFim.minuto, planoatividade[countPA].nomeAtividade, &planoatividade[countPA].distancia, planoatividade[countPA].unidadeMedida);
         countPA++;
         // Print the line of text
         printf("%s\n", line);
@@ -306,11 +306,11 @@ int pesquisarAtividadesRealizadasDeterminadoPeriodo() {
 
     //Conta o numero de pessoas que praticaram a determinada atividade num determinado periodo
     int contParticipantes = 0;
-    for (int i = 0; ar[i].dia != 0; i++)
+    for (int i = 0; atividaderealizada[i].dia != 0; i++)
     {
-        if (strcmp(atividade, ar[i].nomeAtividade) == 0)
+        if (strcmp(atividade, atividaderealizada[i].nomeAtividade) == 0)
         {
-            if (entreDatas(ar[i].dia, ar[i].mes, ar[i].ano, diaInicial, mesInicial, anoInicial, diaFinal, mesFinal, anoFinal))
+            if (entreDatas(atividaderealizada[i].dia, atividaderealizada[i].mes, atividaderealizada[i].ano, diaInicial, mesInicial, anoInicial, diaFinal, mesFinal, anoFinal))
             {
                 contParticipantes++;
             }
@@ -359,11 +359,11 @@ int pesquisarAtividadesRealizadasDeterminadoPeriodoOrdemDecrescente() {
     fclose(fp);
 
 
-    for (int i = 0; ar[i].id != 0; i++)
+    for (int i = 0; atividaderealizada[i].id != 0; i++)
     {
-        if (entreDatas(ar[i].dia, ar[i].mes, ar[i].ano, diaInicial, mesInicial, anoInicial, diaFinal, mesFinal, anoFinal))
+        if (entreDatas(atividaderealizada[i].dia, atividaderealizada[i].mes, atividaderealizada[i].ano, diaInicial, mesInicial, anoInicial, diaFinal, mesFinal, anoFinal))
         {
-            idUtilizador[quantidade++] = ar[i].id;
+            idUtilizador[quantidade++] = atividaderealizada[i].id;
         }  
     }
     //Bubble Sort ordem decrescente
@@ -381,11 +381,11 @@ int pesquisarAtividadesRealizadasDeterminadoPeriodoOrdemDecrescente() {
     system("cls");
     //Printar os IDs dos praticantes que participaram em atividades entre as datas inseridas
     for (int i = 0; i < quantidade; i++) {
-        for (int j = 0; p[j].id != 0; j++)
+        for (int j = 0; praticante[j].id != 0; j++)
         {
-            if (idUtilizador[i] == p[j].id)
+            if (idUtilizador[i] == praticante[j].id)
             {
-                printf("ID: %d | Nome: %s\n", idUtilizador[i], p[j].nome);
+                printf("ID: %d | Nome: %s\n", idUtilizador[i], praticante[j].nome);
             }
         }
     }
@@ -423,13 +423,13 @@ int apresentacaoPlanoAtividadesDeterminadoTipo() {
 
     printf("Atividades realizadas pelo praticante ID %d\n", idUtilizador);
 
-    for (int i = 0; pa[i].id != 0; i++)
+    for (int i = 0; planoatividade[i].id != 0; i++)
     {
-        if (entreDatas(pa[i].diaInicio, pa[i].mesInicio, pa[i].anoInicio, diaInicial, mesInicial, anoInicial, diaFinal, mesFinal, anoFinal))
+        if (entreDatas(planoatividade[i].diaInicio, planoatividade[i].mesInicio, planoatividade[i].anoInicio, diaInicial, mesInicial, anoInicial, diaFinal, mesFinal, anoFinal))
         {
-            if (pa[i].id == idUtilizador)
+            if (planoatividade[i].id == idUtilizador)
             {
-                printf("%d;%d-%d-%d;%d:%d;%d-%d-%d;%d:%d;%s;%d;%s\n", pa[i].id, pa[i].diaInicio, pa[i].mesInicio, pa[i].anoInicio, pa[i].horaInicio.hora, pa[i].horaInicio.minuto, pa[i].diaFim, pa[i].mesFim, pa[i].anoFim, pa[i].horaFim.hora, pa[i].horaFim.minuto, pa[i].nomeAtividade, pa[i].distancia, pa[i].unidadeMedida); 
+                printf("%d;%d-%d-%d;%d:%d;%d-%d-%d;%d:%d;%s;%d;%s\n", planoatividade[i].id, planoatividade[i].diaInicio, planoatividade[i].mesInicio, planoatividade[i].anoInicio, planoatividade[i].horaInicio.hora, planoatividade[i].horaInicio.minuto, planoatividade[i].diaFim, planoatividade[i].mesFim, planoatividade[i].anoFim, planoatividade[i].horaFim.hora, planoatividade[i].horaFim.minuto, planoatividade[i].nomeAtividade, planoatividade[i].distancia, planoatividade[i].unidadeMedida); 
             }
         }
     }
@@ -458,25 +458,25 @@ int calculoTemposTotaisMediasPorAtividade() {
     
     fclose(fp);
     
-    for (int i = 0; p[i].id != 0; i++)
+    for (int i = 0; praticante[i].id != 0; i++)
     {
         int nAtividades = 0;
         float tempo = 0;
         float media;
         float quantidade = 0;
 
-        for (int j = 0; ar[j].id != 0; j++)
+        for (int j = 0; atividaderealizada[j].id != 0; j++)
         {
-            if (entreDatas(ar[j].dia, ar[j].mes, ar[j].ano, diaInicial, mesInicial, anoInicial, diaFinal, mesFinal, anoFinal) && p[i].id == ar[j].id)
+            if (entreDatas(atividaderealizada[j].dia, atividaderealizada[j].mes, atividaderealizada[j].ano, diaInicial, mesInicial, anoInicial, diaFinal, mesFinal, anoFinal) && praticante[i].id == atividaderealizada[j].id)
             {
-                tempo += ar[j].duracao;
+                tempo += atividaderealizada[j].duracao;
                 quantidade += 1;
             }
         }
 
         media = tempo / quantidade;
 
-        printf("ID praticante: %d\n", p[i].id);
+        printf("ID praticante: %d\n", praticante[i].id);
         printf("Tempo total por atividade: %.1f\n", tempo);
         printf("Tempo em media por atividade: %.1f\n", media);
     }   
@@ -487,23 +487,23 @@ int calculoTemposTotaisMediasPorAtividade() {
 }
 
 int tabelaAtividadesTodosPraticantes() {
-    for (int i = 0; p[i].id != 0; i++)
+    for (int i = 0; praticante[i].id != 0; i++)
     {
-        printf("\n\n-------------------Dados do utilizador: %d-------------------\n", p[i].id);
-        printf("-------------------Nome: %s-------------------\n", p[i].nome);
-        for (int j = 0; pa[j].id != 0; j++)
+        printf("\n\n-------------------Dados do utilizador: %d-------------------\n", praticante[i].id);
+        printf("-------------------Nome: %s-------------------\n", praticante[i].nome);
+        for (int j = 0; planoatividade[j].id != 0; j++)
         {
-            if (pa[j].id == p[i].id)
+            if (planoatividade[j].id == praticante[i].id)
             {
-                printf("Atividade Planeada: %s | Distancia: %d | Unidade Medida: %s | Data Inicio: %d-%d-%d | Data Fim: %d-%d-%d\n", pa[j].nomeAtividade, pa[j].distancia, pa[j].unidadeMedida, pa[j].diaInicio, pa[j].mesInicio, pa[j].anoInicio, pa[j].diaFim, pa[j].mesFim, pa[j].anoFim);
+                printf("Atividade Planeada: %s | Distancia: %d | Unidade Medida: %s | Data Inicio: %d-%d-%d | Data Fim: %d-%d-%d\n", planoatividade[j].nomeAtividade, planoatividade[j].distancia, planoatividade[j].unidadeMedida, planoatividade[j].diaInicio, planoatividade[j].mesInicio, planoatividade[j].anoInicio, planoatividade[j].diaFim, planoatividade[j].mesFim, planoatividade[j].anoFim);
             }
             
         }
-        for (int k = 0; ar[k].id != 0; k++)
+        for (int k = 0; atividaderealizada[k].id != 0; k++)
         {
-            if (ar[k].id == p[i].id)
+            if (atividaderealizada[k].id == praticante[i].id)
             {
-                printf("Atividade Realizada: %s | Distancia: %d | Unidade Medida: %s | Data: %d-%d-%d\n", ar[k].nomeAtividade, ar[k].distancia, ar[k].unidadeMedida, ar[k].dia, ar[k].mes, ar[k].ano);
+                printf("Atividade Realizada: %s | Distancia: %d | Unidade Medida: %s | Data: %d-%d-%d\n", atividaderealizada[k].nomeAtividade, atividaderealizada[k].distancia, atividaderealizada[k].unidadeMedida, atividaderealizada[k].dia, atividaderealizada[k].mes, atividaderealizada[k].ano);
             }
         }
               
@@ -524,23 +524,23 @@ int listarSeguidores(char *path) {
     char line[1024];
     while (fgets(line, sizeof(line), fp) != NULL)
     {
-        sscanf(line, "%d;%d", &s[countS].idPraticante, &s[countS].seguidores);
+        sscanf(line, "%d;%d", &seguidor[countS].idPraticante, &seguidor[countS].seguidores);
         countS++;
     }
 
     fclose(fp);
 
     printf("Insira o seu ID (n): ");
-    scanf("%d", &s[countS].idPraticante);
+    scanf("%d", &seguidor[countS].idPraticante);
 
     printf("Insira o ID de quem pretende seguir (n): ");
-    scanf("%d", &s[countS].seguidores);
+    scanf("%d", &seguidor[countS].seguidores);
 
     fp = fopen("GuardaEscrita.txt", "a+");
 
     char fileLine[10];
 
-    sprintf(fileLine, "\n%d;%d", s[countS].idPraticante, s[countS].seguidores);
+    sprintf(fileLine, "\n%d;%d", seguidor[countS].idPraticante, seguidor[countS].seguidores);
     fputs(fileLine, fp);
     
     fclose(fp);
@@ -551,7 +551,7 @@ int listarSeguidores(char *path) {
 
     printf("Lista de seguidores: \n");
 
-    sprintf(fileLine, "\n%d;%d", s[countS].idPraticante, s[countS].seguidores);
+    sprintf(fileLine, "\n%d;%d", seguidor[countS].idPraticante, seguidor[countS].seguidores);
     fputs(fileLine, fp);
 
     fclose(fp);
